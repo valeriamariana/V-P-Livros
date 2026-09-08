@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Biblioteca | V&P Livros{% endblock %}
+
+{% block content %}
+<section class="cabecalho-pagina">
+    <div>
+        <h1>Biblioteca</h1>
+        <p>Gerencie os livros cadastrados na plataforma.</p>
+    </div>
+    <a class="botao" href="{{ url_for('novo_livro') }}">Cadastrar livro</a>
+</section>
+
+{% if livros %}
+<div class="grade-livros">
+    {% for livro in livros %}
+    <article class="card-livro">
+        {% if livro.capa %}
+            <img src="{{ livro.capa }}" alt="Capa de {{ livro.titulo }}" class="capa">
+        {% else %}
+            <div class="capa sem-capa">Sem capa</div>
+        {% endif %}
+
+        <div class="conteudo-card">
+            <h2>{{ livro.titulo }}</h2>
+            {% if livro.editora %}<p><strong>Editora:</strong> {{ livro.editora }}</p>{% endif %}
+            {% if livro.num_paginas %}<p><strong>Páginas:</strong> {{ livro.num_paginas }}</p>{% endif %}
+            {% if livro.sinopse %}<p class="sinopse">{{ livro.sinopse }}</p>{% endif %}
+
+            <div class="acoes">
+                <a class="botao secundario" href="{{ url_for('editar_livro', id_livro=livro.id_livro) }}">Editar</a>
+                <form action="{{ url_for('excluir_livro', id_livro=livro.id_livro) }}" method="POST" onsubmit="return confirmarExclusao();">
+                    <button class="botao perigo" type="submit">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% else %}
+<section class="vazio">
+    <h2>Nenhum livro cadastrado</h2>
+    <p>Comece cadastrando o primeiro livro da biblioteca.</p>
+    <a class="botao" href="{{ url_for('novo_livro') }}">Cadastrar primeiro livro</a>
+</section>
+{% endif %}
+{% endblock %}

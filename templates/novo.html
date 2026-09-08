@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Novo livro | V&P Livros{% endblock %}
+
+{% block content %}
+<section class="formulario-container">
+    <h1>Cadastrar livro</h1>
+    <form method="POST" class="formulario">
+        <label for="titulo">Título *</label>
+        <input id="titulo" name="titulo" type="text" maxlength="50" required>
+
+        <label for="sinopse">Sinopse</label>
+        <textarea id="sinopse" name="sinopse" rows="5"></textarea>
+
+        <label for="capa">URL da capa</label>
+        <input id="capa" name="capa" type="url" placeholder="https://...">
+
+        <label for="num_paginas">Número de páginas</label>
+        <input id="num_paginas" name="num_paginas" type="number" min="1">
+
+        <label for="data_public">Data de publicação</label>
+        <input id="data_public" name="data_public" type="date">
+
+        <label for="arquivo">Arquivo do livro</label>
+        <input id="arquivo" name="arquivo" type="text" placeholder="nome-do-arquivo.pdf ou URL">
+
+        <label for="editora">Editora</label>
+        <input id="editora" name="editora" type="text" maxlength="100">
+
+        <div class="acoes-formulario">
+            <a class="botao secundario" href="{{ url_for('listar_livros') }}">Cancelar</a>
+            <button class="botao" type="submit">Salvar livro</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

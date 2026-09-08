@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6c4ab6">
+    <meta name="description" content="V&P Livros - plataforma de leitura">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}V&P Livros{% endblock %}</title>
+</head>
+<body>
+    <header class="topo">
+        <a class="logo" href="{{ url_for('listar_livros') }}">V&P Livros</a>
+        <nav>
+            <a href="{{ url_for('listar_livros') }}">Biblioteca</a>
+            <a class="botao" href="{{ url_for('novo_livro') }}">+ Novo livro</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% for categoria, mensagem in mensagens %}
+                <div class="alerta {{ categoria }}">{{ mensagem }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
